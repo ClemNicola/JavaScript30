@@ -35,32 +35,72 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
-    
+
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+      const filterResults = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600)
+      console.log(filterResults)
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const names = inventors.map(inventor => `${inventor.first} ${inventor.last}`)
+    console.log(names)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const sortedYear = inventors.sort((inventor1, inventor2) => (inventor1.year < inventor2.year) ? -1 : (inventor1.year > inventor2.year) ? 1 : 0 )
+    console.log(sortedYear)
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const inventorAge = inventors.map(inventor => { const age = inventor.passed - inventor.year;
+      return { ...inventor, age: age};
+    })
+    // let value = 0
+    const yearTogether = inventorAge.reduce((sum, inventor) => sum + inventor.age, 0);
+
+    console.log(yearTogether)
 
     // 5. Sort the inventors by years lived
 
+    const sortedAge = inventorAge.sort((inventor1, inventor2) => (inventor1.age < inventor2.age) ? 1 : (inventor1.age > inventor2.age) ? -1 : 0)
+
+    console.log(sortedAge)
+
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    // const category = document.querySelector('.mw-category');
+    // const links = Array.from(category.querySelectorAll('a'));
 
+    // const de = links
+    //             .map(link => link.textContent)
+    //             .filter(streeName => streetName.includes('de'));
+
+    // console.log(de)
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const sort = people.sort((last,next) => {
+      const [alast, afirst] = last.split(', ');
+      const [blast, bfirst] = next.split(', ');
+      return alast > blast ? -1 : 1;
+      // alast, afisrt et blast, bfirst font exactement la même chose, mais ils sont nécessaire pour pouvoir orodnner les noms, cela ne fonctionne pas comme en ruby qui fait la chose automatiquement. Ici il faut décomposer les éléments.,
+    });
+
+    console.log(sort)
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    const transport = data.reduce((obj, item) => {
+      if (!obj[item]){
+        obj[item] = 0
+      }
+      obj[item]++;
+      return obj
+    }, {})
+    console.log(transport)
   </script>
 </body>
 </html>

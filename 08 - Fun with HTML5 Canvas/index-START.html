@@ -6,8 +6,63 @@
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
 <body>
-<canvas id="draw" width="800" height="800"></canvas>
+<canvas id="draw" width="1500" height="1500"></canvas>
 <script>
+  const draw = document.getElementById('draw');
+  const context = draw.getContext('2d');
+
+  draw.width = window.innerWidth;
+  draw.height = window.innerHeight;
+
+  context.strokeStyle = '#BADA55';
+  context.lineJoin = 'round';
+  context.lineCap = 'round';
+  context.lineWidth = 100;
+
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let hue = 0;
+  let direction = true;
+
+  function dessin  (event) {
+    if (!isDrawing) return;
+    // only run when the mouse moving is done, thanks to the different event listener below.
+    context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+
+    context.beginPath();
+    // start from
+    context.moveTo(lastX, lastY);
+    // go to
+    context.lineTo(event.offsetX, event.offsetY);
+    context.stroke();
+    [lastX, lastY] = [event.offsetX, event.offsetY]
+
+    hue++
+
+    if(hue>=360){
+      hue = 0
+    }
+    if(context.lineWidth >= 300 || context.lineWidth <= 1){
+      direction = !direction
+    }
+    if (direction){
+      context.lineWidth++;
+    } else{
+
+      context.lineWidth--  ;
+    }
+  }
+  draw.addEventListener('mousedown', (event) => {
+    isDrawing = true;
+    [lastX, lastY] = [event.offsetX, event.offsetY]
+    // Update the last x and y before whe move the mouse
+  })
+
+  draw.addEventListener('mousemove', dessin)
+  draw.addEventListener('mouseup', () => isDrawing = false)
+  draw.addEventListener('mouseout', () => isDrawing = false)
+
 </script>
 
 <style>

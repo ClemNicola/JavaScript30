@@ -7,6 +7,23 @@
     <link rel="icon" href="https://fav.farm/🔥" />
   </head>
   <body>
-    <script></script>
+    <script>
+
+      const pressed = [];
+      const pw = 'margot'
+
+      window.addEventListener('keyup', (e) => {
+      console.log(e.key)
+      pressed.push(e.key)
+      pressed.splice(- pw.length - 1, pressed.length - pw.length );
+
+      if  (pressed.join('').includes(pw)){
+        console.log('MARGOTED')
+        cornify_add()
+      }
+      console.log(pressed)
+    })
+
+    </script>
   </body>
 </html>

@@ -24,16 +24,62 @@
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
     </form>
+    <button class="delete" type="button"> Clear All</button>
   </div>
 
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const items = JSON.parse(localStorage.getItem('items')) || [];
+  const clearEl = document.querySelector('.delete');
+
+  function submission (e){
+    e.preventDefault();
+    const text = (this.querySelector('[name=item]')).value;
+    const item = {
+      text,
+      done: false
+    };
+    items.push(item);
+    popuList(items, itemsList)
+    localStorage.setItem('items', JSON.stringify(items));
+    this.reset();
+  }
+
+  function popuList(plates = [], platesList){
+    platesList.innerHTML = plates.map((plate, i)=> {
+      return `
+        <li>
+          <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''}  />
+          <label for="item${i}"> ${plate.text}</label>
+        </li>
+      `;
+    }).join('');
+  }
+
+  function toggleDone(e) {
+    if (!e.target.matches('input')) return;
+    const element = e.target;
+    const index = element.dataset.index;
+    items[index].done = !items[index].done;
+    localStorage.setItem('items', JSON.stringify(items));
+    popuList(items. itemsList);
+  }
+
+  function deleteEl (){
+    items.length = 0
+    localStorage.setItem('items', JSON.stringify(items));
+    popuList(items, itemsList);
+  }
+
+ addItems.addEventListener('submit', submission);
+ itemsList.addEventListener('click', toggleDone);
+ clearEl.addEventListener('click', deleteEl);
+
+ popuList(items, itemsList);
 
 </script>
 
 
 </body>
 </html>
-

@@ -51,8 +51,8 @@ const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'N
 const list = document.querySelector('#bands')
 
 let compare = function (a, b) {
-  let aTitle = a.toLowerCase(),
-      bTitle = b.toLowerCase();
+  let aTitle = a.toLowerCase();
+  let bTitle = b.toLowerCase();
 
   aTitle = removeArticle(aTitle);
   bTitle = removeArticle(bTitle);
@@ -74,7 +74,6 @@ const sortedBands = bands.sort(compare)
 
 sortedBands.forEach(function (band){
   list.innerHTML += `<li> ${band}</li>`;
-
 });
 
 </script>

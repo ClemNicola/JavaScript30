@@ -32,7 +32,7 @@ a {
   border-radius: 20px;
 }
 
-.highlight {
+.surligne {
   transition: all 0.2s;
   border-bottom: 2px solid white;
   position: absolute;

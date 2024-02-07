@@ -27,8 +27,27 @@
     </div>
 
   <script>
-    // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    const links = document.querySelectorAll('a');
+
+    const surligne = document.createElement('span')
+    surligne.classList.add('surligne');
+    document.body.appendChild(surligne);
+
+    function lienSurligne(){
+      const linksCoords = this.getBoundingClientRect();
+      const coords = {
+        width: linksCoords.width,
+        height: linksCoords.height,
+        top: linksCoords.top + window.scrollY,
+        left: linksCoords.left + window.scrollX
+      }
+      surligne.style.width = `${coords.width}px`;
+      surligne.style.height = `${coords.height}px`;
+      surligne.style.transform = `translate(${coords.left}px,${coords.top}px )`
+    };
+
+    links.forEach(a => a.addEventListener('mouseenter', lienSurligne));
+
   </script>
 </body>
 </html>
-

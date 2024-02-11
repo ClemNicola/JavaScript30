@@ -43,7 +43,22 @@
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll('div')
 
+  function logText(e){
+    console.log(this.classList.value) //console.log one two et three car three est dans two et two est dans one
+    // en JS quand on clique sur un élément cela scan la page du haut vers le bas, une fois que l'élément sur lequel nous avons cliqué est identifié, cela parcours le chemin inverse
+
+    // si je veux que ça log uniquement l'élément sur lequel j'ai cliqué il faut ajouter :
+    e.stopPropagation();
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    // si je souhaite qu'un boutton ou une div ne soit cliquable qu'une seule fois je peux ajout cela :
+    once: true
+  }));
+
+  
 </script>
 </body>
 </html>
